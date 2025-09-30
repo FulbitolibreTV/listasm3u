@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Listas M3U actualizadas para IPTV. Copia tu enlace fácilmente." />
+    <title>📺 Listas M3U - Copia y Usa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #2d3748;
+            --card-bg: #f8fafc;
+            --accent: #3182ce;
+            --accent-hover: #2b6cb0;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --success: #38a169;
+        }
+
+        .dark-mode {
+            --bg: #1a202c;
+            --text: #e2e8f0;
+            --card-bg: #2d3748;
+            --border: #4a5568;
+            --shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.4s, color 0.4s;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .toggle-mode {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .toggle-mode:hover {
+            background: var(--accent-hover);
+        }
+
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent);
+            color: white !important;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+            background: var(--accent-hover);
+        }
+
+        .lists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .list-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .list-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px var(--shadow);
+        }
+
+        .list-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .list-item {
+            margin: 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .list-label {
+            font-weight: 600;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        .copy-btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.02);
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            .lists-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📺 Listas M3U - Copia tu Enlace</h1>
+            <button class="toggle-mode" id="themeToggle">🌙 Modo Oscuro</button>
+            
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=61581394450547&mibextid=wwXIfr&rdid=9K7CQzWnqaI2wvHA#" target="_blank" class="social-link">
+                    <i class="fab fa-facebook-f"></i> Facebook 1
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100076165849389" target="_blank" class="social-link">
+                    <i class="fab fa-facebook-f"></i> Facebook 2
+                </a>
+            </div>
+        </header>
+
+        <div class="lists-grid" id="listsContainer">
+            <!-- Las listas se generarán aquí con JavaScript -->
+        </div>
+
+        <footer>
+            <p>© 2025 Listas M3U - Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Configuración del modo oscuro
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Verificar preferencia guardada
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️ Modo Claro';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️ Modo Claro';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙 Modo Oscuro';
+            }
+        });
+
+        // Datos de las listas (extraídos de tus enlaces)
+        const listas = [
+            { nombre: "Lista 1", servidor: "http://matrivagoweb.xyz:2095", usuario: "asalinas289", pass: "123123" },
+            { nombre: "Lista 2", servidor: "http://matrivagoweb.xyz:2095", usuario: "DISSAR052", pass: "123456" },
+            { nombre: "Lista 3", servidor: "http://matrivagoweb.xyz:2095", usuario: "hsandoval758", pass: "123456" },
+            { nombre: "Lista 4", servidor: "http://matrivagoweb.xyz:2095", usuario: "DGDJCC470", pass: "123456" },
+            { nombre: "Lista 5", servidor: "http://matrivagoweb.xyz:2095", usuario: "MAR165", pass: "123456" },
+            { nombre: "Lista 6", servidor: "http://matrivagoweb.xyz:2095", usuario: "984525264", pass: "142536" },
+            { nombre: "Lista 7", servidor: "http://matrivagoweb.xyz:2095", usuario: "985538236", pass: "123456" },
+            { nombre: "Lista 8", servidor: "http://matrivagoweb.xyz:2095", usuario: "803056", pass: "123456" },
+            { nombre: "Lista 9", servidor: "http://matrivagoweb.xyz:2095", usuario: "986300453", pass: "123456" },
+            { nombre: "Lista 10", servidor: "http://matrivagoweb.xyz:2095", usuario: "971873915", pass: "142536" },
+            { nombre: "Lista 11", servidor: "http://matrivagoweb.xyz:2095", usuario: "GILLMA190", pass: "123456" },
+            { nombre: "Lista 12", servidor: "http://matrivagoweb.xyz:2095", usuario: "sperez812", pass: "123123" },
+            { nombre: "Lista 13", servidor: "http://matrivagoweb.xyz:2095", usuario: "cn571", pass: "123123" },
+            { nombre: "Lista 14", servidor: "http://matrivagoweb.xyz:2095", usuario: "cmedina647", pass: "123123" },
+            { nombre: "Lista 15", servidor: "http://matrivagoweb.xyz:2095", usuario: "994492513", pass: "123456" },
+            { nombre: "Lista 16", servidor: "http://matrivagoweb.xyz:2095", usuario: "vbenegas030", pass: "123123" },
+            { nombre: "Lista 17", servidor: "http://matrivagoweb.xyz:2095", usuario: "984664554", pass: "123456" },
+            { nombre: "Lista 18", servidor: "http://matrivagoweb.xyz:2095", usuario: "juanfranco", pass: "123456" },
+            { nombre: "Lista 19", servidor: "http://matrivagoweb.xyz:2095", usuario: "356569", pass: "123456" },
+            { nombre: "Lista 20", servidor: "http://matrivagoweb.xyz:2095", usuario: "caponte963", pass: "123123" },
+            { nombre: "Lista 21", servidor: "http://matrivagoweb.xyz:2095", usuario: "MAR192", pass: "123456" },
+            { nombre: "Lista 22", servidor: "http://matrivagoweb.xyz:2095", usuario: "985727268", pass: "123456" },
+            { nombre: "Lista 23", servidor: "http://matrivagoweb.xyz:2095", usuario: "hpereira641", pass: "123123" },
+            { nombre: "Lista 24", servidor: "http://matrivagoweb.xyz:2095", usuario: "985603671", pass: "123456" },
+            { nombre: "Lista 25", servidor: "http://matrivagoweb.xyz:2095", usuario: "NOELIAS785", pass: "123456" },
+            { nombre: "Lista 26", servidor: "http://matrivagoweb.xyz:2095", usuario: "VICTOR382", pass: "123456" },
+            { nombre: "Lista 27", servidor: "http://matrivagoweb.xyz:2095", usuario: "457011", pass: "123456" },
+            { nombre: "Lista 28", servidor: "http://matrivagoweb.xyz:2095", usuario: "992384138", pass: "142536" },
+            { nombre: "Lista 29", servidor: "http://matrivagoweb.xyz:2095", usuario: "981196968", pass: "123456" },
+            { nombre: "Lista 30", servidor: "http://matrivagoweb.xyz:2095", usuario: "973995960", pass: "142536" },
+            { nombre: "Lista 31", servidor: "http://matrivagoweb.xyz:2095", usuario: "986649483", pass: "123456" },
+            { nombre: "Lista 32", servidor: "http://matrivagoweb.xyz:2095", usuario: "DER037", pass: "123456" },
+            { nombre: "Lista 33", servidor: "http://matrivagoweb.xyz:2095", usuario: "993599754", pass: "123456" },
+            { nombre: "Lista 34", servidor: "http://matrivagoweb.xyz:2095", usuario: "991410133", pass: "123456" },
+            { nombre: "Lista 35", servidor: "http://matrivagoweb.xyz:2095", usuario: "ovallejos654", pass: "123123" },
+            { nombre: "Lista 36", servidor: "http://matrivagoweb.xyz:2095", usuario: "982215849", pass: "142536" },
+            { nombre: "Lista 37", servidor: "http://matrivagoweb.xyz:2095", usuario: "982012499", pass: "123456" },
+            { nombre: "Lista 38", servidor: "http://matrivagoweb.xyz:2095", usuario: "983906663", pass: "142536" },
+            { nombre: "Lista 39", servidor: "http://matrivagoweb.xyz:2095", usuario: "981555697", pass: "123456" },
+            { nombre: "Lista 40", servidor: "http://supersonictv.live:8080", usuario: "Paul1", pass: "Paul1" },
+            { nombre: "Lista 41", servidor: "http://supersonictv.live:8080", usuario: "Tina1", pass: "Tina1" },
+            { nombre: "Lista 42", servidor: "http://supersonictv.live:8080", usuario: "Bobby1", pass: "Bobby1" },
+            { nombre: "Lista 43", servidor: "http://supersonictv.live:8080", usuario: "Priscilla1", pass: "Priscilla1" },
+            { nombre: "Lista 44", servidor: "http://supersonictv.live:8080", usuario: "Kenny1", pass: "Kenny1" },
+            { nombre: "Lista 45", servidor: "http://supersonictv.live:8080", usuario: "Betty1", pass: "Betty1" },
+            { nombre: "Lista 46", servidor: "http://supersonictv.live:8080", usuario: "Darien1", pass: "Darien1" },
+            { nombre: "Lista 47", servidor: "http://supersonictv.live:8080", usuario: "Lenore1", pass: "Lenore1" },
+            { nombre: "Lista 48", servidor: "http://supersonictv.live:8080", usuario: "Shan1", pass: "Shan1" },
+            { nombre: "Lista 49", servidor: "http://supersonictv.live:8080", usuario: "Shacara1", pass: "Shacara1" },
+            { nombre: "Lista 50", servidor: "http://supersonictv.live:8080", usuario: "Tedd1", pass: "Tedd1" },
+            { nombre: "Lista 51", servidor: "http://supersonictv.live:8080", usuario: "Allen123", pass: "Allen123" },
+            { nombre: "Lista 52", servidor: "http://supersonictv.live:8080", usuario: "Calvin123", pass: "Calvin123" },
+            { nombre: "Lista 53", servidor: "http://supersonictv.live:8080", usuario: "Henry123", pass: "Henry123" },
+            { nombre: "Lista 54", servidor: "http://supersonictv.live:8080", usuario: "Wayne123", pass: "Wayne123" },
+            { nombre: "Lista 55", servidor: "http://supersonictv.live:8080", usuario: "Evelyn123", pass: "Evelyn123" },
+            { nombre: "Lista 56", servidor: "http://supersonictv.live:8080", usuario: "Marvin123", pass: "Marvin123" },
+            { nombre: "Lista 57", servidor: "http://supersonictv.live:8080", usuario: "Devon123", pass: "Devon123" },
+            { nombre: "Lista 58", servidor: "http://supersonictv.live:8080", usuario: "Edgar123", pass: "Edgar123" },
+            { nombre: "Lista 59", servidor: "http://supersonictv.live:8080", usuario: "Sonya123", pass: "Sonya123" },
+            { nombre: "Lista 60", servidor: "http://supersonictv.live:8080", usuario: "Leon123", pass: "Leon123" },
+            { nombre: "Lista 61", servidor: "http://supersonictv.live:8080", usuario: "Norman123", pass: "Norman123" },
+            { nombre: "Lista 62", servidor: "http://supersonictv.live:8080", usuario: "Neal123", pass: "Neal123" },
+            { nombre: "Lista 63", servidor: "http://supersonictv.live:8080", usuario: "Kendrick123", pass: "Kendrick123" },
+            { nombre: "Lista 64", servidor: "http://supersonictv.live:8080", usuario: "Nick123", pass: "Nick123" },
+            { nombre: "Lista 65", servidor: "http://supersonictv.live:8080", usuario: "Dara123", pass: "Dara123" },
+            { nombre: "Lista 66", servidor: "http://supersonictv.live:8080", usuario: "Sherman123", pass: "Sherman123" },
+            { nombre: "Lista 67", servidor: "http://supersonictv.live:8080", usuario: "Cherish123", pass: "Cherish123" },
+            { nombre: "Lista 68", servidor: "http://supersonictv.live:8080", usuario: "Silas123", pass: "Silas123" },
+            { nombre: "Lista 69", servidor: "http://supersonictv.live:8080", usuario: "Tawana123", pass: "Tawana123" },
+            { nombre: "Lista 70", servidor: "http://supersonictv.live:8080", usuario: "Ramsey123", pass: "Ramsey123" },
+            { nombre: "Lista 71", servidor: "http://supersonictv.live:8080", usuario: "Roslyn123", pass: "Roslyn123" },
+            { nombre: "Lista 72", servidor: "http://supersonictv.live:8080", usuario: "Keyonna123", pass: "Keyonna123" },
+            { nombre: "Lista 73", servidor: "http://supersonictv.live:8080", usuario: "Desean123", pass: "Desean123" },
+            { nombre: "Lista 74", servidor: "http://supersonictv.live:8080", usuario: "Treva123", pass: "Treva123" },
+            { nombre: "Lista 75", servidor: "http://supersonictv.live:8080", usuario: "Adonis123", pass: "Adonis123" },
+            { nombre: "Lista 76", servidor: "http://supersonictv.live:8080", usuario: "Reco123", pass: "Reco123" },
+            { nombre: "Lista 77", servidor: "http://supersonictv.live:8080", usuario: "Nash123", pass: "Nash123" },
+            { nombre: "Lista 78", servidor: "http://supersonictv.live:8080", usuario: "Pat123", pass: "Pat123" },
+            { nombre: "Lista 79", servidor: "http://supersonictv.live:8080", usuario: "Larrell123", pass: "Larrell123" },
+            { nombre: "Lista 80", servidor: "http://supersonictv.live:8080", usuario: "Kema123", pass: "Kema123" },
+            { nombre: "Lista 81", servidor: "http://supersonictv.live:8080", usuario: "Joe12345", pass: "Joe12345" },
+            { nombre: "Lista 82", servidor: "http://world-qualite.xyz:8080", usuario: "wilysabor", pass: "5rg65df" },
+            { nombre: "Lista 83", servidor: "http://world-qualite.xyz:8080", usuario: "RICARDO_NORIEGA", pass: "zh2snKwMs96U" },
+            { nombre: "Lista 84", servidor: "http://world-qualite.xyz:8080", usuario: "966660008tv", pass: "hnd09231" },
+            { nombre: "Lista 85", servidor: "http://world-qualite.xyz:8080", usuario: "evZpu2WeJB", pass: "T7cWDjY5CC" },
+            { nombre: "Lista 86", servidor: "http://world-qualite.xyz:8080", usuario: "edgardorojas", pass: "281120" },
+            { nombre: "Lista 87", servidor: "http://world-qualite.xyz:8080", usuario: "987714568tv", pass: "76TGYGghjn" },
+            { nombre: "Lista 88", servidor: "http://world-qualite.xyz:8080", usuario: "96959522", pass: "010723" },
+            { nombre: "Lista 89", servidor: "http://world-qualite.xyz:8080", usuario: "88063715", pass: "27052022" },
+            { nombre: "Lista 90", servidor: "http://world-qualite.xyz:8080", usuario: "987790546tv", pass: "9ht6re3h" },
+            { nombre: "Lista 91", servidor: "http://world-qualite.xyz:8080", usuario: "995428884tv", pass: "kij69q" },
+            { nombre: "Lista 92", servidor: "http://world-qualite.xyz:8080", usuario: "999914748tv", pass: "kdyw7853" },
+            { nombre: "Lista 93", servidor: "http://world-qualite.xyz:8080", usuario: "pas2308ut24", pass: "ut24pas2308tv" },
+            { nombre: "Lista 94", servidor: "http://world-qualite.xyz:8080", usuario: "0525.DANILO4975eterno", pass: "56949757896colo" },
+            { nombre: "Lista 95", servidor: "http://world-qualite.xyz:8080", usuario: "992204185tv", pass: "654vms45" },
+            { nombre: "Lista 96", servidor: "http://world-qualite.xyz:8080", usuario: "945680498tv2", pass: "83hf73rhdf" },
+            { nombre: "Lista 97", servidor: "http://world-qualite.xyz:8080", usuario: "9635364tv1", pass: "1a208z" },
+            { nombre: "Lista 98", servidor: "http://world-qualite.xyz:8080", usuario: "64955209", pass: "84gh764kj99" },
+            { nombre: "Lista 99", servidor: "http://world-qualite.xyz:8080", usuario: "982116566tv", pass: "p335ged" },
+            { nombre: "Lista 100", servidor: "http://world-qualite.xyz:8080", usuario: "RAFA_VALGANON", pass: "rUcYfsuwKH" },
+            { nombre: "Lista 101", servidor: "http://world-qualite.xyz:8080", usuario: "K9LXfEagaRt6", pass: "hkyKKATuNuPb" },
+            { nombre: "Lista 102", servidor: "http://tv.proyectox.vip:8080", usuario: "6338653", pass: "7cfff1519db5" },
+            { nombre: "Lista 103", servidor: "http://tv.proyectox.vip:8080", usuario: "om%40njarres", pass: "d3dMxKHQUG" },
+            { nombre: "Lista 104", servidor: "http://tv.proyectox.vip:8080", usuario: "nbolanos88", pass: "TJBPQjjQjH" },
+            { nombre: "Lista 105", servidor: "http://tv.zapping.life:8080", usuario: "USA3320010027", pass: "Zuw89dwkd" },
+            { nombre: "Lista 106", servidor: "http://tv.zapping.life:8080", usuario: "Josetomasg34", pass: "D8GNiDAIlT" },
+            { nombre: "Lista 107", servidor: "http://tv.zapping.life:8080", usuario: "Arol97", pass: "hHjf0j4HB7" },
+            { nombre: "Lista 108", servidor: "http://tv.zapping.life:8080", usuario: "alexmargarita", pass: "lwDRib5ooT" },
+            { nombre: "Lista 109", servidor: "http://tv.zapping.life:8080", usuario: "gutierrezpablo1", pass: "Gfk6LH4b2u" },
+            { nombre: "Lista 110", servidor: "http://tv.zapping.life:8080", usuario: "tjsr12021", pass: "HKC1uFeg2C" },
+            { nombre: "Lista 111", servidor: "http://tv.zapping.life:8080", usuario: "silvanelio1", pass: "D4z5PtKYJK" },
+            { nombre: "Lista 112", servidor: "http://tv.zapping.life:8080", usuario: "VictorSalas07", pass: "WHw95ZHeQR" },
+            { nombre: "Lista 113", servidor: "http://tv.zapping.life:8080", usuario: "moliviviana1", pass: "bZK5XMAXfy" },
+            { nombre: "Lista 114", servidor: "http://tv.zapping.life:8080", usuario: "abelardo2020", pass: "ES4G1y3eXX" },
+            { nombre: "Lista 115", servidor: "http://tv.zapping.life:8080", usuario: "Ricardo2821", pass: "hfnUxoS5CB" },
+            { nombre: "Lista 116", servidor: "http://tv.zapping.life:8080", usuario: "userrith1", pass: "gP8NaAB9fE" },
+            { nombre: "Lista 117", servidor: "http://tv.zapping.life:8080", usuario: "AdalbertoEceda$190", pass: "A2JtW87578" }
+        ];
+
+        const container = document.getElementById('listsContainer');
+
+        listas.forEach(lista => {
+            const card = document.createElement('div');
+            card.className = 'list-card';
+            card.innerHTML = `
+                <div class="list-title">${lista.nombre}</div>
+                <div class="list-item"><span class="list-label">Usuario:</span> ${lista.usuario}</div>
+                <div class="list-item"><span class="list-label">Contraseña:</span> ${lista.pass}</div>
+                <div class="list-item"><span class="list-label">Servidor:</span> ${lista.servidor}</div>
+                <button class="copy-btn" data-servidor="${lista.servidor}" data-user="${lista.usuario}" data-pass="${lista.pass}">
+                    📋 Copiar Lista M3U
+                </button>
+            `;
+            container.appendChild(card);
+        });
+
+        // Función para copiar al portapapeles
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const servidor = btn.getAttribute('data-servidor');
+                const user = btn.getAttribute('data-user');
+                const pass = btn.getAttribute('data-pass');
+                const url = `${servidor}/get.php?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}&type=m3u`;
+
+                navigator.clipboard.writeText(url).then(() => {
+                    btn.textContent = '✅ ¡Copiado!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = '📋 Copiar Lista M3U';
+                        btn.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    alert('Error al copiar: ' + err);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

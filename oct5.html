@@ -199,7 +199,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -221,7 +221,7 @@
             max-width: 500px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             transform: scale(0.9);
             transition: transform 0.3s;
         }
@@ -237,18 +237,44 @@
         }
 
         .modal p {
-            margin: 12px 0;
+            margin: 10px 0;
             font-size: 1.05rem;
         }
 
-        .modal a {
-            color: #3182ce;
-            font-weight: 600;
-            text-decoration: underline;
+        .fb-btn {
+            display: inline-block;
+            background: #1877f2;
+            color: white !important;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin: 20px 0 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(24, 119, 242, 0.3);
+        }
+
+        .fb-btn:hover {
+            background: #166fe5;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(24, 119, 242, 0.4);
+        }
+
+        .fb-btn i {
+            margin-right: 8px;
+        }
+
+        #countdown {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            color: #e53e3e;
+            font-weight: 700;
+            display: none;
         }
 
         .modal-btn {
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 12px 24px;
             background: #e53e3e;
             color: white;
@@ -257,6 +283,7 @@
             font-weight: 600;
             cursor: pointer;
             font-size: 1.1rem;
+            display: none;
         }
 
         .modal-btn:hover {
@@ -277,6 +304,9 @@
             }
             h1 {
                 font-size: 1.9rem;
+            }
+            .modal {
+                padding: 20px;
             }
         }
     </style>
@@ -310,34 +340,70 @@
         <div class="modal">
             <h2>⚠️ ¡APOYO OBLIGATORIO!</h2>
             <p>Para continuar usando las listas, debes:</p>
-            <p>1️⃣ <strong>Seguirme en Facebook:</strong></p>
-            <p><a href="https://www.facebook.com/profile.php?id=61581709230643" target="_blank">👉 Ir a mi perfil</a></p>
+            <p>1️⃣ <strong>Seguirme en Facebook</strong></p>
             <p>2️⃣ <strong>Dar LIKE a mis 3 últimos videos</strong></p>
             <p>3️⃣ <strong>Compartir el enlace de este canal</strong></p>
-            <button class="modal-btn" id="modalConfirm">✅ Ya lo hice</button>
+            
+            <a href="https://www.facebook.com/profile.php?id=61581709230643" target="_blank" class="fb-btn" id="goToFacebook">
+                <i class="fab fa-facebook"></i> 👉 IR A MI PERFIL DE FACEBOOK
+            </a>
+            
+            <div id="countdown">
+                Redirigiendo en <span id="seconds">5</span>...
+            </div>
+            
+            <button class="modal-btn" id="modalConfirm">
+                ✅ Ya lo hice
+            </button>
         </div>
     </div>
 
     <script>
-        // Modo oscuro
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        if (localStorage.getItem('theme') === 'dark') {
-            body.classList.add('dark-mode');
-            themeToggle.textContent = '☀️ Modo Claro';
-        }
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-                themeToggle.textContent = '☀️ Modo Claro';
-            } else {
-                localStorage.setItem('theme', 'light');
-                themeToggle.textContent = '🌙 Modo Oscuro';
-            }
-        });
+        // === MODAL ACTUALIZADO ===
+        const modal = document.getElementById('supportModal');
+        const goToFacebookBtn = document.getElementById('goToFacebook');
+        const modalConfirmBtn = document.getElementById('modalConfirm');
+        const countdownEl = document.getElementById('countdown');
+        const secondsEl = document.getElementById('seconds');
 
-        // Datos: LATINAS
+        let countdownInterval = null;
+        let confirmTimeout = null;
+
+        function startCountdown() {
+            if (countdownInterval) clearInterval(countdownInterval);
+            let seconds = 5;
+            secondsEl.textContent = seconds;
+            countdownEl.style.display = 'block';
+            modalConfirmBtn.style.display = 'none';
+
+            countdownInterval = setInterval(() => {
+                seconds--;
+                secondsEl.textContent = seconds;
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    modal.classList.remove('active');
+                }
+            }, 1000);
+        }
+
+        function setupModal() {
+            // Reiniciar estado
+            if (confirmTimeout) clearTimeout(confirmTimeout);
+            if (countdownInterval) clearInterval(countdownInterval);
+            countdownEl.style.display = 'none';
+            modalConfirmBtn.style.display = 'none';
+
+            // Mostrar "Ya lo hice" después de 8 segundos
+            confirmTimeout = setTimeout(() => {
+                if (!countdownEl.style.display || countdownEl.style.display === 'none') {
+                    modalConfirmBtn.style.display = 'inline-block';
+                }
+            }, 8000);
+
+            modal.classList.add('active');
+        }
+
+        // === LISTAS ===
         const listasLatinas = [
             { nombre: "Latina 1", servidor: "http://tv.masterplaytv.club:8080", usuario: "mariosiles", pass: "144d4d39d42e" },
             { nombre: "Latina 2", servidor: "http://tv.masterplaytv.club:8080", usuario: "Drazun23lgdh", pass: "q65M5nwa2A" },
@@ -437,7 +503,6 @@
             { nombre: "Latina 96", servidor: "http://canal-pro.xyz:8080", usuario: "sebajimeneztv", pass: "lk324" }
         ];
 
-        // Datos: ESPAÑOLAS
         const listasEspanolas = [
             { nombre: "Española 1", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP0160172707455371", pass: "41742411261059" },
             { nombre: "Española 2", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP013021738692849329", pass: "f1baaaa401cd" },
@@ -467,9 +532,9 @@
         ];
 
         // Renderizar listas
-        function renderLists(listas, containerId, tipo) {
+        function renderLists(listas, containerId) {
             const container = document.getElementById(containerId);
-            listas.forEach((lista, index) => {
+            listas.forEach(lista => {
                 const card = document.createElement('div');
                 card.className = 'list-card';
                 card.innerHTML = `
@@ -477,7 +542,7 @@
                     <div class="list-item"><span class="list-label">Usuario:</span> ${lista.usuario}</div>
                     <div class="list-item"><span class="list-label">Contraseña:</span> ${lista.pass}</div>
                     <div class="list-item"><span class="list-label">Servidor:</span> ${lista.servidor}</div>
-                    <button class="copy-btn" data-servidor="${lista.servidor}" data-user="${lista.usuario}" data-pass="${lista.pass}" data-tipo="${tipo}">
+                    <button class="copy-btn" data-servidor="${lista.servidor}" data-user="${lista.usuario}" data-pass="${lista.pass}">
                         📋 Copiar Lista M3U
                     </button>
                 `;
@@ -485,18 +550,10 @@
             });
         }
 
-        renderLists(listasLatinas, 'latinasContainer', 'latina');
-        renderLists(listasEspanolas, 'espanolasContainer', 'espanola');
+        renderLists(listasLatinas, 'latinasContainer');
+        renderLists(listasEspanolas, 'espanolasContainer');
 
-        // Modal
-        const modal = document.getElementById('supportModal');
-        const modalConfirm = document.getElementById('modalConfirm');
-
-        modalConfirm.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-
-        // Copiar + mostrar modal
+        // === EVENTOS DEL MODAL ===
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const servidor = btn.getAttribute('data-servidor');
@@ -511,13 +568,39 @@
                         btn.textContent = '📋 Copiar Lista M3U';
                         btn.classList.remove('copied');
                     }, 2000);
-
-                    // Mostrar modal de apoyo
-                    modal.classList.add('active');
+                    setupModal();
                 }).catch(err => {
                     alert('Error al copiar: ' + err);
                 });
             });
+        });
+
+        goToFacebookBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open(goToFacebookBtn.href, '_blank');
+            startCountdown();
+        });
+
+        modalConfirmBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // === MODO OSCURO ===
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️ Modo Claro';
+        }
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️ Modo Claro';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙 Modo Oscuro';
+            }
         });
     </script>
 </body>

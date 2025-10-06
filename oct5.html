@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Listas M3U Latinas y Españolas - Copia tu enlace y apóyanos en Facebook." />
+    <title>🔥 Listas M3U Premium - Latinos & Españolas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #2d3748;
+            --card-bg: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --success: #38a169;
+            /* Latinos */
+            --latino-bg: #fff8f0;
+            --latino-accent: #e53e3e;
+            --latino-hover: #c53030;
+            /* Españolas */
+            --espanol-bg: #f0f7ff;
+            --espanol-accent: #2b6cb0;
+            --espanol-hover: #2c5282;
+        }
+
+        .dark-mode {
+            --bg: #1a202c;
+            --text: #e2e8f0;
+            --card-bg: #2d3748;
+            --border: #4a5568;
+            --shadow: rgba(0, 0, 0, 0.2);
+            --latino-bg: #2a1a1a;
+            --espanol-bg: #1a2a3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.4s, color 0.4s;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #e53e3e, #2b6cb0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .toggle-mode {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .toggle-mode:hover {
+            background: #2d3748;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid;
+        }
+
+        .latinas .section-title {
+            color: var(--latino-accent);
+            border-bottom-color: var(--latino-accent);
+        }
+
+        .espanolas .section-title {
+            color: var(--espanol-accent);
+            border-bottom-color: var(--espanol-accent);
+        }
+
+        .lists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .list-card {
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .latinas .list-card {
+            background: var(--latino-bg);
+            border: 2px solid var(--latino-accent);
+        }
+
+        .espanolas .list-card {
+            background: var(--espanol-bg);
+            border: 2px solid var(--espanol-accent);
+        }
+
+        .list-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px var(--shadow);
+        }
+
+        .list-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .latinas .list-title {
+            color: var(--latino-accent);
+        }
+
+        .espanolas .list-title {
+            color: var(--espanol-accent);
+        }
+
+        .list-item {
+            margin: 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .list-label {
+            font-weight: 600;
+            opacity: 0.85;
+        }
+
+        .copy-btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .latinas .copy-btn {
+            background: var(--latino-accent);
+            color: white;
+        }
+
+        .espanolas .copy-btn {
+            background: var(--espanol-accent);
+            color: white;
+        }
+
+        .latinas .copy-btn:hover {
+            background: var(--latino-hover);
+            transform: scale(1.02);
+        }
+
+        .espanolas .copy-btn:hover {
+            background: var(--espanol-hover);
+            transform: scale(1.02);
+        }
+
+        .copy-btn.copied {
+            background: var(--success) !important;
+        }
+
+        /* Modal de obligación */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal h2 {
+            color: #e53e3e;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+        }
+
+        .modal p {
+            margin: 12px 0;
+            font-size: 1.05rem;
+        }
+
+        .modal a {
+            color: #3182ce;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .modal-btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .modal-btn:hover {
+            background: #c53030;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            .lists-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 1.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔥 Listas M3U Premium</h1>
+            <button class="toggle-mode" id="themeToggle">🌙 Modo Oscuro</button>
+        </header>
+
+        <!-- SECCIÓN LATINAS -->
+        <div class="latinas">
+            <h2 class="section-title">🇱🇦 Listas LATINAS</h2>
+            <div class="lists-grid" id="latinasContainer"></div>
+        </div>
+
+        <!-- SECCIÓN ESPAÑOLAS -->
+        <div class="espanolas">
+            <h2 class="section-title">🇪🇸 Listas ESPAÑOLAS</h2>
+            <div class="lists-grid" id="espanolasContainer"></div>
+        </div>
+
+        <footer>
+            <p>© 2025 Listas M3U - Apóyanos en Facebook para más actualizaciones.</p>
+        </footer>
+    </div>
+
+    <!-- Modal de obligación -->
+    <div class="modal-overlay" id="supportModal">
+        <div class="modal">
+            <h2>⚠️ ¡APOYO OBLIGATORIO!</h2>
+            <p>Para continuar usando las listas, debes:</p>
+            <p>1️⃣ <strong>Seguirme en Facebook:</strong></p>
+            <p><a href="https://www.facebook.com/profile.php?id=61581709230643" target="_blank">👉 Ir a mi perfil</a></p>
+            <p>2️⃣ <strong>Dar LIKE a mis 3 últimos videos</strong></p>
+            <p>3️⃣ <strong>Compartir el enlace de este canal</strong></p>
+            <button class="modal-btn" id="modalConfirm">✅ Ya lo hice</button>
+        </div>
+    </div>
+
+    <script>
+        // Modo oscuro
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️ Modo Claro';
+        }
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️ Modo Claro';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙 Modo Oscuro';
+            }
+        });
+
+        // Datos: LATINAS
+        const listasLatinas = [
+            { nombre: "Latina 1", servidor: "http://tv.masterplaytv.club:8080", usuario: "mariosiles", pass: "144d4d39d42e" },
+            { nombre: "Latina 2", servidor: "http://tv.masterplaytv.club:8080", usuario: "Drazun23lgdh", pass: "q65M5nwa2A" },
+            { nombre: "Latina 3", servidor: "http://tv.masterplaytv.club:8080", usuario: "7578pV8Bj", pass: "675f50183bbc" },
+            { nombre: "Latina 4", servidor: "http://tv.masterplaytv.club:8080", usuario: "Sandra25", pass: "zWwY9UMmMT" },
+            { nombre: "Latina 5", servidor: "http://tv.masterplaytv.club:8080", usuario: "HDPinguino123dkdkkDDFFDFa", pass: "al3q83JYkd" },
+            { nombre: "Latina 6", servidor: "http://tv.masterplaytv.club:8080", usuario: "smithyosse1", pass: "SFRbpFKmEU" },
+            { nombre: "Latina 7", servidor: "http://tv.masterplaytv.club:8080", usuario: "G6steven", pass: "7v3pDg2ybm" },
+            { nombre: "Latina 8", servidor: "http://tv.masterplaytv.club:8080", usuario: "Canton", pass: "eSKN6PxUnL" },
+            { nombre: "Latina 9", servidor: "http://tv.masterplaytv.club:8080", usuario: "UswRBonx031", pass: "ebNqvaGVk7" },
+            { nombre: "Latina 10", servidor: "http://tv.masterplaytv.club:8080", usuario: "mapon", pass: "n4tjDBA3TY" },
+            { nombre: "Latina 11", servidor: "http://tv.masterplaytv.club:8080", usuario: "pereira2024", pass: "f233a5cf063c" },
+            { nombre: "Latina 12", servidor: "http://tv.masterplaytv.club:8080", usuario: "DAoo00O123sSes3sEstrella", pass: "Sfrd9a3SZ5" },
+            { nombre: "Latina 13", servidor: "http://tv.masterplaytv.club:8080", usuario: "AndresMA0332", pass: "87a8e171e7d8" },
+            { nombre: "Latina 14", servidor: "http://tv.masterplaytv.club:8080", usuario: "alvarovega", pass: "31f3570d79bd" },
+            { nombre: "Latina 15", servidor: "http://tv.masterplaytv.club:8080", usuario: "sweetminniemr", pass: "cWx666qwRW" },
+            { nombre: "Latina 16", servidor: "http://tv.masterplaytv.club:8080", usuario: "Juansi.vip", pass: "c44e1fa06da5" },
+            { nombre: "Latina 17", servidor: "http://tv.masterplaytv.club:8080", usuario: "fernando2408", pass: "acf8a271f434" },
+            { nombre: "Latina 18", servidor: "http://tv.masterplaytv.club:8080", usuario: "m1ri4mm4rt", pass: "120d6155b4ba" },
+            { nombre: "Latina 19", servidor: "http://tv.masterplaytv.club:8080", usuario: "OLIBELK24", pass: "6b868859991a" },
+            { nombre: "Latina 20", servidor: "http://tv.masterplaytv.club:8080", usuario: "ironpilotabc", pass: "547d91f1f845" },
+            { nombre: "Latina 21", servidor: "http://tv.masterplaytv.club:8080", usuario: "EveVeLYNES", pass: "0d7ace40f068" },
+            { nombre: "Latina 22", servidor: "http://tv.masterplaytv.club:8080", usuario: "coellojulio50", pass: "tRhkpQyHGw" },
+            { nombre: "Latina 23", servidor: "http://tv.masterplaytv.club:8080", usuario: "asdsdIlLasOOoWsdsdaw", pass: "cK9ceDN2tC" },
+            { nombre: "Latina 24", servidor: "http://tv.masterplaytv.club:8080", usuario: "tejandres1", pass: "vUP2KuJtGF" },
+            { nombre: "Latina 25", servidor: "http://tv.masterplaytv.club:8080", usuario: "zamorahector1", pass: "aP3bpyLbfW" },
+            { nombre: "Latina 26", servidor: "http://tv.masterplaytv.club:8080", usuario: "WWre1iLlli09384ks34", pass: "vhaGbZ4RXY" },
+            { nombre: "Latina 27", servidor: "http://tv.masterplaytv.club:8080", usuario: "mayitoledo84", pass: "71a7a7a3d62a" },
+            { nombre: "Latina 28", servidor: "http://tv.masterplaytv.club:8080", usuario: "RicTej06012020", pass: "44852777ad7e" },
+            { nombre: "Latina 29", servidor: "http://tv.masterplaytv.club:8080", usuario: "Gustavo11CA", pass: "eb0c86ef5d1d" },
+            { nombre: "Latina 30", servidor: "http://tv.masterplaytv.club:8080", usuario: "rudytelles69", pass: "40d863178d5f" },
+            { nombre: "Latina 31", servidor: "http://tv.masterplaytv.club:8080", usuario: "oscarm0811", pass: "wason11tonces" },
+            { nombre: "Latina 32", servidor: "http://tv.masterplaytv.club:8080", usuario: "mAmaRony4w", pass: "cFQqrbyu79" },
+            { nombre: "Latina 33", servidor: "http://tv.masterplaytv.club:8080", usuario: "m0051premium2", pass: "ccgbNYkYG7" },
+            { nombre: "Latina 34", servidor: "http://tv.masterplaytv.club:8080", usuario: "Qy5bmpxMFu", pass: "1d4cfbcafcd6" },
+            { nombre: "Latina 35", servidor: "http://tv.masterplaytv.club:8080", usuario: "ministra1974", pass: "evkRPcrmDH" },
+            { nombre: "Latina 36", servidor: "http://tv.masterplaytv.club:8080", usuario: "rmolinac", pass: "6a7YfeTpG2" },
+            { nombre: "Latina 37", servidor: "http://tv.masterplaytv.club:8080", usuario: "GKhoury2021", pass: "08f2e7a24433" },
+            { nombre: "Latina 38", servidor: "http://tv.masterplaytv.club:8080", usuario: "c4rlo5m3na", pass: "2697d4052ed4" },
+            { nombre: "Latina 39", servidor: "http://tv.masterplaytv.club:8080", usuario: "POLLO23", pass: "7472d94acfe1" },
+            { nombre: "Latina 40", servidor: "http://tv.masterplaytv.club:8080", usuario: "PaulCalvopina", pass: "0a5533cb2e7c" },
+            { nombre: "Latina 41", servidor: "http://tv.masterplaytv.club:8080", usuario: "RichardR", pass: "nHC7QwcavN" },
+            { nombre: "Latina 42", servidor: "http://tv.masterplaytv.club:8080", usuario: "Josevelasco", pass: "4037d63c9851" },
+            { nombre: "Latina 43", servidor: "http://tv.masterplaytv.club:8080", usuario: "Vjev24007nw", pass: "93c669d76cab" },
+            { nombre: "Latina 44", servidor: "http://tv.masterplaytv.club:8080", usuario: "liduskar", pass: "f6f7688e6cd3" },
+            { nombre: "Latina 45", servidor: "http://tv.masterplaytv.club:8080", usuario: "Angel12", pass: "RdVMMeVGFZ" },
+            { nombre: "Latina 46", servidor: "http://tv.masterplaytv.club:8080", usuario: "pjimenez", pass: "4M6DPKLZa3" },
+            { nombre: "Latina 47", servidor: "http://tv.masterplaytv.club:8080", usuario: "Juanjo87", pass: "nX1PbPy8N2" },
+            { nombre: "Latina 48", servidor: "http://canal-pro.xyz:8080", usuario: "991458107tv", pass: "9i6a1f" },
+            { nombre: "Latina 49", servidor: "http://canal-pro.xyz:8080", usuario: "977742288tv1", pass: "hjenm8123dd21" },
+            { nombre: "Latina 50", servidor: "http://canal-pro.xyz:8080", usuario: "64786764tv", pass: "30ttb223" },
+            { nombre: "Latina 51", servidor: "http://canal-pro.xyz:8080", usuario: "74424212", pass: "77yf5f8hwhd" },
+            { nombre: "Latina 52", servidor: "http://canal-pro.xyz:8080", usuario: "978648318tv", pass: "71739j" },
+            { nombre: "Latina 53", servidor: "http://canal-pro.xyz:8080", usuario: "992119937tv", pass: "64c0c0" },
+            { nombre: "Latina 54", servidor: "http://canal-pro.xyz:8080", usuario: "940785548tv", pass: "v8vr15" },
+            { nombre: "Latina 55", servidor: "http://canal-pro.xyz:8080", usuario: "66046791", pass: "04032023" },
+            { nombre: "Latina 56", servidor: "http://canal-pro.xyz:8080", usuario: "963529988tv", pass: "liguik" },
+            { nombre: "Latina 57", servidor: "http://canal-pro.xyz:8080", usuario: "97264084", pass: "180623" },
+            { nombre: "Latina 58", servidor: "http://canal-pro.xyz:8080", usuario: "AlejandroJulio", pass: "8338" },
+            { nombre: "Latina 59", servidor: "http://canal-pro.xyz:8080", usuario: "0904.miguelsstv", pass: "2024.jesstvabril" },
+            { nombre: "Latina 60", servidor: "http://canal-pro.xyz:8080", usuario: "xWjkhNLN4E7S", pass: "mq9NbLH57ZmK" },
+            { nombre: "Latina 61", servidor: "http://canal-pro.xyz:8080", usuario: "954993868tv", pass: "d45b3h" },
+            { nombre: "Latina 62", servidor: "http://canal-pro.xyz:8080", usuario: "961961474", pass: "Afkc2440ds" },
+            { nombre: "Latina 63", servidor: "http://canal-pro.xyz:8080", usuario: "961820854tv", pass: "2k0pdme3" },
+            { nombre: "Latina 64", servidor: "http://canal-pro.xyz:8080", usuario: "kmdcSphMhZ6D", pass: "47UVzczhbrxZ" },
+            { nombre: "Latina 65", servidor: "http://canal-pro.xyz:8080", usuario: "50050237", pass: "270623pp" },
+            { nombre: "Latina 66", servidor: "http://canal-pro.xyz:8080", usuario: "avalenz.safety@gmail.com", pass: "Hgfdsa99" },
+            { nombre: "Latina 67", servidor: "http://canal-pro.xyz:8080", usuario: "mariopizarrotv", pass: "o2i46hj" },
+            { nombre: "Latina 68", servidor: "http://canal-pro.xyz:8080", usuario: "sandritahenriqueztv", pass: "222dfg443" },
+            { nombre: "Latina 69", servidor: "http://canal-pro.xyz:8080", usuario: "984075062tv", pass: "hecoza" },
+            { nombre: "Latina 70", servidor: "http://canal-pro.xyz:8080", usuario: "991090016tv", pass: "bfbsmny" },
+            { nombre: "Latina 71", servidor: "http://canal-pro.xyz:8080", usuario: "996146049tv", pass: "44s9k4" },
+            { nombre: "Latina 72", servidor: "http://canal-pro.xyz:8080", usuario: "56990119030wspztv", pass: "05092021ztv" },
+            { nombre: "Latina 73", servidor: "http://canal-pro.xyz:8080", usuario: "953665365tv", pass: "x965w6w" },
+            { nombre: "Latina 74", servidor: "http://canal-pro.xyz:8080", usuario: "988099244tv", pass: "do341e" },
+            { nombre: "Latina 75", servidor: "http://canal-pro.xyz:8080", usuario: "75192296", pass: "19042022" },
+            { nombre: "Latina 76", servidor: "http://canal-pro.xyz:8080", usuario: "993944139tv", pass: "6s8024" },
+            { nombre: "Latina 77", servidor: "http://canal-pro.xyz:8080", usuario: "985495248tv", pass: "9zj47b" },
+            { nombre: "Latina 78", servidor: "http://canal-pro.xyz:8080", usuario: "998067899tv", pass: "l43v7f" },
+            { nombre: "Latina 79", servidor: "http://canal-pro.xyz:8080", usuario: "998951670tv", pass: "ohlno5n" },
+            { nombre: "Latina 80", servidor: "http://canal-pro.xyz:8080", usuario: "978237859tv", pass: "756vp19z" },
+            { nombre: "Latina 81", servidor: "http://canal-pro.xyz:8080", usuario: "71451746tv", pass: "msd67hg" },
+            { nombre: "Latina 82", servidor: "http://canal-pro.xyz:8080", usuario: "986909112tv", pass: "9pu76z" },
+            { nombre: "Latina 83", servidor: "http://canal-pro.xyz:8080", usuario: "1307hansbravoUP", pass: "13072021@@" },
+            { nombre: "Latina 84", servidor: "http://canal-pro.xyz:8080", usuario: "57864156", pass: "121123" },
+            { nombre: "Latina 85", servidor: "http://canal-pro.xyz:8080", usuario: "prm2312301", pass: "UHSQcxvzsAfj" },
+            { nombre: "Latina 86", servidor: "http://canal-pro.xyz:8080", usuario: "992891517tv", pass: "C43Ez2vD1" },
+            { nombre: "Latina 87", servidor: "http://canal-pro.xyz:8080", usuario: "RolandoValladares", pass: "56956387095" },
+            { nombre: "Latina 88", servidor: "http://canal-pro.xyz:8080", usuario: "56957266541wspztv", pass: "19102023ztv" },
+            { nombre: "Latina 89", servidor: "http://canal-pro.xyz:8080", usuario: "990085640tv", pass: "e26h20" },
+            { nombre: "Latina 90", servidor: "http://canal-pro.xyz:8080", usuario: "958818379tv", pass: "28spnbjg52" },
+            { nombre: "Latina 91", servidor: "http://canal-pro.xyz:8080", usuario: "968373572tv", pass: "6244u2" },
+            { nombre: "Latina 92", servidor: "http://canal-pro.xyz:8080", usuario: "CEtsGxsApB52", pass: "Fap6ekUwVVkM" },
+            { nombre: "Latina 93", servidor: "http://canal-pro.xyz:8080", usuario: "34162177", pass: "egd2r3ygd2" },
+            { nombre: "Latina 94", servidor: "http://canal-pro.xyz:8080", usuario: "977605802tv", pass: "2k0mdjk34" },
+            { nombre: "Latina 95", servidor: "http://canal-pro.xyz:8080", usuario: "manuelalbertotv", pass: "71jkd9" },
+            { nombre: "Latina 96", servidor: "http://canal-pro.xyz:8080", usuario: "sebajimeneztv", pass: "lk324" }
+        ];
+
+        // Datos: ESPAÑOLAS
+        const listasEspanolas = [
+            { nombre: "Española 1", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP0160172707455371", pass: "41742411261059" },
+            { nombre: "Española 2", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP013021738692849329", pass: "f1baaaa401cd" },
+            { nombre: "Española 3", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP0199174161786440", pass: "91741617864836" },
+            { nombre: "Española 4", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP01661734784736284", pass: "2e7a2d40ca62" },
+            { nombre: "Española 5", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP01961704555580003", pass: "41704555580658" },
+            { nombre: "Española 6", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP017811746364608424", pass: "4d4da7c65938" },
+            { nombre: "Española 7", servidor: "http://vipbtwv.xyz:8080", usuario: "SVIP0142174672965627", pass: "21746729656316" },
+            { nombre: "Española 8", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP016691741698003367", pass: "24c8d34ec7ca" },
+            { nombre: "Española 9", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP0152170990841855", pass: "53b47205a888" },
+            { nombre: "Española 10", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP012172780532220", pass: "91743857351205" },
+            { nombre: "Española 11", servidor: "http://vipbtwv.xyz:8080", usuario: "pedrobarquero", pass: "bEzAKERDwbcG" },
+            { nombre: "Española 12", servidor: "http://vipbtwv.xyz:8080", usuario: "Amigofranmonica", pass: "EXQ5W6bWzy9y" },
+            { nombre: "Española 13", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP019101730738785125", pass: "26178a14a0d8" },
+            { nombre: "Española 14", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP0156172993808021", pass: "61729938080342" },
+            { nombre: "Española 15", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP01321713509240006", pass: "20c944d23013" },
+            { nombre: "Española 16", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP018201743971449381", pass: "580911ab0477" },
+            { nombre: "Española 17", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP01761729761320117", pass: "71b056f0f19c" },
+            { nombre: "Española 18", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP012661741458065365", pass: "5713ecfb5051" },
+            { nombre: "Española 19", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP01528172692632099", pass: "9c27073d5f58" },
+            { nombre: "Española 20", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP012731746278454421", pass: "5880a8e09c73" },
+            { nombre: "Española 21", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP0178169941405332", pass: "21700418985419" },
+            { nombre: "Española 22", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP0158174191102664", pass: "81741911026839" },
+            { nombre: "Española 23", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP0156172976629375", pass: "91729766293292" },
+            { nombre: "Española 24", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP019731730386006123", pass: "c8d21fa5b8d1" },
+            { nombre: "Española 25", servidor: "http://vipbtwv.xyz:8080", usuario: "VIP0131746746742434", pass: "52b89eba3b16" }
+        ];
+
+        // Renderizar listas
+        function renderLists(listas, containerId, tipo) {
+            const container = document.getElementById(containerId);
+            listas.forEach((lista, index) => {
+                const card = document.createElement('div');
+                card.className = 'list-card';
+                card.innerHTML = `
+                    <div class="list-title">${lista.nombre}</div>
+                    <div class="list-item"><span class="list-label">Usuario:</span> ${lista.usuario}</div>
+                    <div class="list-item"><span class="list-label">Contraseña:</span> ${lista.pass}</div>
+                    <div class="list-item"><span class="list-label">Servidor:</span> ${lista.servidor}</div>
+                    <button class="copy-btn" data-servidor="${lista.servidor}" data-user="${lista.usuario}" data-pass="${lista.pass}" data-tipo="${tipo}">
+                        📋 Copiar Lista M3U
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        renderLists(listasLatinas, 'latinasContainer', 'latina');
+        renderLists(listasEspanolas, 'espanolasContainer', 'espanola');
+
+        // Modal
+        const modal = document.getElementById('supportModal');
+        const modalConfirm = document.getElementById('modalConfirm');
+
+        modalConfirm.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // Copiar + mostrar modal
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const servidor = btn.getAttribute('data-servidor');
+                const user = btn.getAttribute('data-user');
+                const pass = btn.getAttribute('data-pass');
+                const url = `${servidor}/get.php?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}&type=m3u`;
+
+                navigator.clipboard.writeText(url).then(() => {
+                    btn.textContent = '✅ ¡Copiado!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = '📋 Copiar Lista M3U';
+                        btn.classList.remove('copied');
+                    }, 2000);
+
+                    // Mostrar modal de apoyo
+                    modal.classList.add('active');
+                }).catch(err => {
+                    alert('Error al copiar: ' + err);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
